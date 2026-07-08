@@ -1,0 +1,13 @@
+# TODO: update gitignore as needed
+
+.build/
+.cache/
+
+*.keystore
+*.jks
+*.p12
+
+*.so
+
+tags
+conf.bash
