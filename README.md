@@ -28,6 +28,7 @@ ndk_ver=<ndk-version>
 
 c_src=(
   "main.c"
+  "sdl_window_context.c"
   # Other C source files
 )
 ```
