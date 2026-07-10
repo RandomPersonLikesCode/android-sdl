@@ -74,7 +74,7 @@ void sdl_win_ctx_destroy_ctx(SDLWindowContext *win_ctx) {
     return;
   }
 
-  if(!SDL_GL_DestroyContext(win_ctx->ctx)) {
+  if (!SDL_GL_DestroyContext(win_ctx->ctx)) {
     SDL_LOG_ERROR();
     return;
   }
