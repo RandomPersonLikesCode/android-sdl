@@ -59,5 +59,7 @@ void SDL_AppQuit(void *appstate, SDL_AppResult result) {
     sdl_win_ctx_destroy_ctx(&sdl_state->win_ctx);
     sdl_win_ctx_destroy_win(&sdl_state->win_ctx);
     sdl_win_ctx_uninit();
+
+    SDL_free(sdl_state);
   }
 }
