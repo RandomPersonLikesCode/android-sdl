@@ -177,8 +177,8 @@ cc_flag_c_d="-std=c99 -Wall -Wextra -Wpedantic -O0 -g3 -fno-omit-frame-pointer -
 cc_flag_c_r="-std=c99 -Wall -Wextra -Wpedantic -O2 -DNDEBUG -isystem ../.$incl -fcolor-diagnostics -c -fPIC"
 cc_flag_l="-shared"
 
-ld_flag_32="-L$sdl_32 -lSDL3"
-ld_flag_64="-L$sdl_64 -lSDL3"
+ld_flag_32="-L$sdl_32 -lSDL3 -lGLESv3"
+ld_flag_64="-L$sdl_64 -lSDL3 -lGLESv3"
 
 cc_strip="$ndk_bin/llvm-strip"
 
