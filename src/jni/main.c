@@ -2,6 +2,7 @@
 
 #define SDL_MAIN_USE_CALLBACKS
 
+#include "gl_renderer.h"
 #include "sdl_app_state.h"
 #include "sdl_window_context.h"
 
@@ -25,6 +26,12 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
   if (!sdl_win_ctx_init()) return SDL_APP_FAILURE;
   if (!sdl_win_ctx_create_win(&sdl_state->win_ctx)) return SDL_APP_FAILURE;
   if (!sdl_win_ctx_create_ctx(&sdl_state->win_ctx)) return SDL_APP_FAILURE;
+
+  SDL_GetWindowSizeInPixels(sdl_state->win_ctx.win,
+    &sdl_state->renderer.vp_width, &sdl_state->renderer.vp_height);
+
+  glViewport(0, 0, sdl_state->renderer.vp_width,
+    sdl_state->renderer.vp_height);
 
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
