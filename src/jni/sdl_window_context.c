@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: MIT */
+
 #include "sdl_window_context.h"
 
 #include "utils/sdl_logging.h"

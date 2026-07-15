@@ -52,3 +52,5 @@ Note: make sure to replace `<file>`, `<alias>`, `<pass>` and others with the app
 This project is licensed under MIT license (see `LICENSE`), this project
 also uses third-party libraries, license copy for each third-party libraries can
 be found in each subdirectory inside `third_party/` folder.
+
+App icon is licensed under [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/).

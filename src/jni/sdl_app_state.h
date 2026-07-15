@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: MIT */
+
 #pragma once
 
 #include "gl_renderer.h"
