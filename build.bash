@@ -349,6 +349,8 @@ zip_libs() {
   zip -0 -ur .$apk_unsigned ./lib ./*.dex
 
   cd $OLDPWD
+
+  zip -0 -ur $apk_unsigned ./assets
 }
 
 apk_align() {
