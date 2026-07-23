@@ -174,8 +174,9 @@ cc_32="$ndk_bin/armv7a-linux-androideabi$target_sdk_ver-clang"
 cc_64="$ndk_bin/aarch64-linux-android$target_sdk_ver-clang"
 
 cc_flag_c_d="-std=c99 -Wall -Wextra -Wpedantic -O0 -g3 -fno-omit-frame-pointer -isystem ../.$incl -fcolor-diagnostics -c -fPIC"
-cc_flag_c_r="-std=c99 -Wall -Wextra -Wpedantic -O2 -DNDEBUG -isystem ../.$incl -fcolor-diagnostics -c -fPIC"
-cc_flag_l="-shared"
+cc_flag_c_r="-std=c99 -Wall -Wextra -Wpedantic -O2 -flto=thin -ffunction-sections -fdata-sections -DNDEBUG -isystem ../.$incl -fcolor-diagnostics -c -fPIC"
+cc_flag_l_d="-shared"
+cc_flag_l_r="-O2 -flto=thin -Wl,--gc-sections -shared"
 
 ld_flag_32="-L$sdl_32 -lSDL3 -lGLESv3"
 ld_flag_64="-L$sdl_64 -lSDL3 -lGLESv3"
@@ -260,12 +261,20 @@ _compile_c_64_r() {
   cd $OLDPWD
 }
 
-_link_c_32() {
-  $cc_32 $cc_flag_l -o $lib_32 $dir_32/*.o $ld_flag_32
+_link_c_32_d() {
+  $cc_32 $cc_flag_l_d -o $lib_32 $dir_32/*.o $ld_flag_32
 }
 
-_link_c_64() {
-  $cc_64 $cc_flag_l -o $lib_64 $dir_64/*.o $ld_flag_64
+_link_c_32_r() {
+  $cc_32 $cc_flag_l_r -o $lib_32 $dir_32/*.o $ld_flag_32
+}
+
+_link_c_64_d() {
+  $cc_64 $cc_flag_l_d -o $lib_64 $dir_64/*.o $ld_flag_64
+}
+
+_link_c_64_r() {
+  $cc_64 $cc_flag_l_r -o $lib_64 $dir_64/*.o $ld_flag_64
 }
 
 cc_build_variant="${build_type}_${build_arch}"
@@ -279,7 +288,7 @@ compile_c() {
         _compile_c_32_r
 
         echo "Linking C objects"
-        _link_c_32
+        _link_c_32_r
 
         ;;
       "release_64-bit")
@@ -288,7 +297,7 @@ compile_c() {
         _compile_c_64_r
 
         echo "Linking C objects"
-        _link_c_64
+        _link_c_64_r
 
         ;;
       "release_all")
@@ -298,8 +307,8 @@ compile_c() {
         _compile_c_64_r
 
         echo "Linking C objects"
-        _link_c_32
-        _link_c_64
+        _link_c_32_r
+        _link_c_64_r
 
         ;;
       "debug_32-bit")
@@ -308,7 +317,7 @@ compile_c() {
         _compile_c_32_d
 
         echo "Linking C objects"
-        _link_c_32
+        _link_c_32_d
 
         ;;
       "debug_64-bit")
@@ -317,7 +326,7 @@ compile_c() {
         _compile_c_64_d
 
         echo "Linking C objects"
-        _link_c_64
+        _link_c_64_d
 
         ;;
       *)
@@ -327,8 +336,8 @@ compile_c() {
         _compile_c_64_d
 
         echo "Linking C objects"
-        _link_c_32
-        _link_c_64
+        _link_c_32_d
+        _link_c_64_d
 
         ;;
     esac
