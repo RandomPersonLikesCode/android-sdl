@@ -344,14 +344,14 @@ compile_c() {
   fi
 }
 
-c_strip() {
+strip_libs() {
   if [[ "$build_type" == "release" ]]; then
     echo "Stripping shared libraries"
     $cc_strip --strip-unneeded $cache_dir/**/*.so
   fi
 }
 
-zip_libs() {
+zip_apk() {
   echo "Zipping APK"
   cd $cache_dir
 
@@ -362,12 +362,12 @@ zip_libs() {
   zip -0 -ur $apk_unsigned ./assets
 }
 
-apk_align() {
+align_apk() {
   echo "Aligning APK"
   zipalign -v 4 $apk_unsigned $apk_aligned
 }
 
-apk_sign() {
+sign_apk() {
   echo "Signing APK"
   apksigner sign --ks $ks_file --ks-key-alias $ks_alias --ks-pass pass:$ks_pass --out $apk_signed $apk_aligned
 }
@@ -385,10 +385,10 @@ main() {
   compile_link_res
   compile_java
   compile_c
-  c_strip
-  zip_libs
-  apk_align
-  apk_sign
+  strip_libs
+  zip_apk
+  align_apk
+  sign_apk
 
   echo "Done"
 }
